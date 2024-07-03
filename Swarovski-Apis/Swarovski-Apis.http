@@ -1,0 +1,6 @@
+@Swarovski_Apis_HostAddress = http://localhost:5100
+
+GET {{Swarovski_Apis_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

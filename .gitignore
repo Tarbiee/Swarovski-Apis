@@ -1,0 +1,50 @@
+New-Item -ItemType file -Path . -Name .gitignore
+Set-Content .gitignore @"
+# Ignore Visual Studio temporary files, build results, and
+# including .vs directory
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Auto-generated files
+Generated/
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+
+# .NET
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Others
+.ionide/
+node_modules/
+dist/
+tmp/
+*.swp
+*.swo
+.idea/
+.vscode/
+"@
