@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Swarovski_Apis.Models.Entities;
 
 namespace Swarovski_Apis.Data
 {
@@ -11,5 +12,6 @@ namespace Swarovski_Apis.Data
 
         }
 
+        public DbSet<Jewel> Jewels { get; set; }
     }
 }
