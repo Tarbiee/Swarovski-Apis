@@ -1,4 +1,6 @@
-﻿namespace Swarovski_Apis.Models.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Swarovski_Apis.Models.Entities
 {
     public class User
     {
