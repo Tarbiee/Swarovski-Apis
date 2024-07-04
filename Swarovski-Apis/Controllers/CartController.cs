@@ -26,7 +26,19 @@ namespace Swarovski_Apis.Controllers
         public IActionResult AllItems()
         {
             var items = dbContext.Carts.ToList();
-                return Ok(items);
+            return Ok(items);
+        }
+
+        [HttpGet("getCartJewelById /{id:int}")]
+        public IActionResult GetItemsById(int id)
+        {
+            var item = dbContext.Carts.Find(id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+            return Ok(item);
+
         }
         
     }

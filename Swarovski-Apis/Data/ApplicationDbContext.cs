@@ -26,13 +26,39 @@ namespace Swarovski_Apis.Data
             modelBuilder.Entity<CartJewel>()
                 .HasOne(cj => cj.Cart)
                 .WithMany(c => c.CartJewels)
-                .HasForeignKey(cj=> cj.CartId);
+                .HasForeignKey(cj => cj.CartId);
 
             //configuring relationship from CartJewel to Jewel
             modelBuilder.Entity<CartJewel>()
                 .HasOne(cj => cj.Jewel)
                 .WithMany(c => c.CartJewels)
                 .HasForeignKey(cj => cj.JewelId);
+
+            modelBuilder.Entity<Cart>().HasData(
+            new Cart
+             {
+               Id = 1,
+               UserId = 1, 
+               Quantity = 1,
+               Price = 0, 
+             },
+             new Cart
+             {
+                 Id = 2,
+                 UserId = 3,
+                 Quantity = 5,
+                 Price = 0,
+             },
+              new Cart
+              {
+                  Id = 3,
+                  UserId = 1,
+                  Quantity = 3,
+                  Price = 0,
+              }
+
+
+                );
         }
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Swarovski_Apis.Data;
 
@@ -10,9 +11,11 @@ using Swarovski_Apis.Data;
 namespace Swarovski_Apis.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240704090226_Seed data")]
+    partial class Seeddata
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,29 +46,6 @@ namespace Swarovski_Apis.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Carts");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Price = 0,
-                            Quantity = 1,
-                            UserId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Price = 0,
-                            Quantity = 5,
-                            UserId = 3
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Price = 0,
-                            Quantity = 3,
-                            UserId = 1
-                        });
                 });
 
             modelBuilder.Entity("Swarovski_Apis.Models.Entities.CartJewel", b =>
@@ -121,6 +101,44 @@ namespace Swarovski_Apis.Migrations
                     b.HasKey("id");
 
                     b.ToTable("Jewels");
+
+                    b.HasData(
+                        new
+                        {
+                            id = 1,
+                            description = "A beautiful diamond necklace made of 18k gold.",
+                            image = "https://jewelryexchange.com/wp-content/uploads/2022/02/NXX01-Z0002.jpg",
+                            material = "Gold",
+                            name = "Diamond Necklace",
+                            price = 1000
+                        },
+                        new
+                        {
+                            id = 2,
+                            description = "Elegant sapphire earrings in white gold setting.",
+                            image = "https://www.levinsfinejewellery.co.uk/wp-content/uploads/2018/09/241000022.jpg",
+                            material = "White Gold",
+                            name = "Sapphire Earrings",
+                            price = 500
+                        },
+                        new
+                        {
+                            id = 3,
+                            description = "A classic emerald ring set in platinum.",
+                            image = "https://static.austenblake.com/image/product_v2/clrn03028/rf0012580/detail/3d/ww/em1/0001.jpg",
+                            material = "Platinum",
+                            name = "Emerald Ring",
+                            price = 750
+                        },
+                        new
+                        {
+                            id = 4,
+                            description = "A vibrant ruby bracelet with a sterling silver chain.",
+                            image = "https://www.gregoryjewellers.com.au/wp-content/uploads/2021/02/RGB006-308900-12-Bracelet-WG-B1.jpg",
+                            material = "Silver",
+                            name = "Ruby Bracelet",
+                            price = 350
+                        });
                 });
 
             modelBuilder.Entity("Swarovski_Apis.Models.Entities.User", b =>
