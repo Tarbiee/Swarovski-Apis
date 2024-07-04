@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Swarovski_Apis.Models.Entities
 {
@@ -9,9 +10,10 @@ namespace Swarovski_Apis.Models.Entities
         public string name { get; set; }
         public string description { get; set; }
         public string image { get; set; }
-        public string  material{ get; set; }
+        public string material { get; set; }
         public int price { get; set; }
 
-
+        // Many-to-many relationship with Cart
+        public ICollection<CartJewel> CartJewels { get; set; }
     }
 }

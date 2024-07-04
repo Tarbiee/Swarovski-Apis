@@ -10,5 +10,7 @@ namespace Swarovski_Apis.Models.Entities
         public string email { get; set; }
         public string passwordHash { get; set; }
 
+        public ICollection<Cart> Carts { get; set; }
+
     }
 }
