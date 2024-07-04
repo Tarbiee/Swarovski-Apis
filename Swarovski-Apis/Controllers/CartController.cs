@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swarovski_Apis.Data;
+using Swarovski_Apis.Models;
 
 namespace Swarovski_Apis.Controllers
 {
@@ -40,6 +41,34 @@ namespace Swarovski_Apis.Controllers
             return Ok(item);
 
         }
-        
+
+        [HttpPut("updateItem/{id:int}")]
+
+        public IActionResult UpdateItem(int id, UpdateCartDto updateCartDto)
+        {
+            var item = dbContext.Carts.Find(id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+            item.Quantity = updateCartDto.Quantity;
+            dbContext.SaveChanges();
+            return Ok(item);
+
+        }
+
+        [HttpDelete("deleteItem/{id:int}")]
+
+        public IActionResult DeleteItem(int id)
+        {
+            var item = dbContext.Carts.Find(id);
+            if(item == null)
+            {
+                return NotFound();
+            }
+            dbContext.Carts.Remove(item);
+            dbContext.SaveChanges();
+            return Ok(item);
+        }
     }
 }
