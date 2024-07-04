@@ -21,9 +21,6 @@ namespace Swarovski_Apis.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //defining composite key
-            modelBuilder.Entity<CartJewel>()
-                .HasKey(cj => new { cj.CartId, cj.JewelId });
 
             //configuring relationship from CartJewel to Cart
             modelBuilder.Entity<CartJewel>()
