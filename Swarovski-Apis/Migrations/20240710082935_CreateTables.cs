@@ -5,27 +5,52 @@
 namespace Swarovski_Apis.Migrations
 {
     /// <inheritdoc />
-    public partial class Addcartjeweltable : Migration
+    public partial class CreateTables : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "JewelryId",
-                table: "Carts");
+            migrationBuilder.CreateTable(
+                name: "Carts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Carts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Jewels",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    image = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    material = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    price = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Jewels", x => x.id);
+                });
 
             migrationBuilder.CreateTable(
                 name: "CartJewels",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
                     CartId = table.Column<int>(type: "int", nullable: false),
                     JewelId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CartJewels", x => x.Id);
+                    table.PrimaryKey("PK_CartJewels", x => new { x.CartId, x.JewelId });
                     table.ForeignKey(
                         name: "FK_CartJewels_Carts_CartId",
                         column: x => x.CartId,
@@ -41,49 +66,22 @@ namespace Swarovski_Apis.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Carts_UserId",
-                table: "Carts",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CartJewels_CartId",
-                table: "CartJewels",
-                column: "CartId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_CartJewels_JewelId",
                 table: "CartJewels",
                 column: "JewelId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Carts_Users_UserId",
-                table: "Carts",
-                column: "UserId",
-                principalTable: "Users",
-                principalColumn: "id",
-                onDelete: ReferentialAction.Cascade);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Carts_Users_UserId",
-                table: "Carts");
-
             migrationBuilder.DropTable(
                 name: "CartJewels");
 
-            migrationBuilder.DropIndex(
-                name: "IX_Carts_UserId",
-                table: "Carts");
+            migrationBuilder.DropTable(
+                name: "Carts");
 
-            migrationBuilder.AddColumn<int>(
-                name: "JewelryId",
-                table: "Carts",
-                type: "int",
-                nullable: false,
-                defaultValue: 0);
+            migrationBuilder.DropTable(
+                name: "Jewels");
         }
     }
 }

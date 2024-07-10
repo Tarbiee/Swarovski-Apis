@@ -35,56 +35,20 @@ namespace Swarovski_Apis.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("Carts");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Price = 0,
-                            Quantity = 1,
-                            UserId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Price = 0,
-                            Quantity = 5,
-                            UserId = 3
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Price = 0,
-                            Quantity = 3,
-                            UserId = 1
-                        });
                 });
 
             modelBuilder.Entity("Swarovski_Apis.Models.Entities.CartJewel", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<int>("CartId")
                         .HasColumnType("int");
 
                     b.Property<int>("JewelId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("CartId");
+                    b.HasKey("CartId", "JewelId");
 
                     b.HasIndex("JewelId");
 
@@ -123,42 +87,6 @@ namespace Swarovski_Apis.Migrations
                     b.ToTable("Jewels");
                 });
 
-            modelBuilder.Entity("Swarovski_Apis.Models.Entities.User", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<string>("email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("passwordHash")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("username")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("id");
-
-                    b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("Swarovski_Apis.Models.Entities.Cart", b =>
-                {
-                    b.HasOne("Swarovski_Apis.Models.Entities.User", "User")
-                        .WithMany("Carts")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Swarovski_Apis.Models.Entities.CartJewel", b =>
                 {
                     b.HasOne("Swarovski_Apis.Models.Entities.Cart", "Cart")
@@ -186,11 +114,6 @@ namespace Swarovski_Apis.Migrations
             modelBuilder.Entity("Swarovski_Apis.Models.Entities.Jewel", b =>
                 {
                     b.Navigation("CartJewels");
-                });
-
-            modelBuilder.Entity("Swarovski_Apis.Models.Entities.User", b =>
-                {
-                    b.Navigation("Carts");
                 });
 #pragma warning restore 612, 618
         }

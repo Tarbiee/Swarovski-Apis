@@ -73,6 +73,24 @@ namespace Swarovski_Apis.Controllers
             return Ok(jewel);
 
         }
+
+        [HttpPatch("{id}")]
+        public ActionResult<UpdateJewelDto> PatchJewel(int id, [FromBody] UpdateJewelDto patchedDto)
+        {
+            if (id != 0 && id < 0)
+            {
+                var identifiedJewel = dbContext.Jewels.Find(id);
+                if (identifiedJewel == null) { return NotFound(); }
+
+                identifiedJewel.name = patchedDto.name;
+                return Ok(identifiedJewel);
+            }
+
+            return BadRequest();
+
+        }
+
+
         // DELETE: api/Jewel/{id}
         [HttpDelete("deleteJewel/{id:int}")]
         public IActionResult DeleteJewel(int id)
