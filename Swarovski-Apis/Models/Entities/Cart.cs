@@ -7,10 +7,14 @@ namespace Swarovski_Apis.Models.Entities
     {
         [Key]
         public int Id { get; set; }
-        public int Quantity {  get; set; }
-        public int Price { get; set; }
 
-        // Many-to-many relationship with Jewel
-        public ICollection<CartJewel> CartJewels { get; set; }
+        //foreign key
+        public int JewelId { get; set; }
+        public Jewel Jewel { get; set; }
+        public int Quantity { get; set; }
+        public int Price { get; set; }
+        public string JewelName { get; set; }
+        public string JewelImage { get; set; }
+
     }
 }

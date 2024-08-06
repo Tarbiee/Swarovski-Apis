@@ -13,7 +13,7 @@ namespace Swarovski_Apis.Models.Entities
         public string material { get; set; }
         public int price { get; set; }
 
-        // Many-to-many relationship with Cart
-        public ICollection<CartJewel> CartJewels { get; set; }
+        // one-many relationship with Cart
+        public ICollection<Cart> Carts { get; set; }
     }
 }

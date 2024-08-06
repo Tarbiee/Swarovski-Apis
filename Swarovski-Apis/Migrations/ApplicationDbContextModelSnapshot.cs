@@ -29,6 +29,17 @@ namespace Swarovski_Apis.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("JewelId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("JewelImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("JewelName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
@@ -37,22 +48,9 @@ namespace Swarovski_Apis.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Carts");
-                });
-
-            modelBuilder.Entity("Swarovski_Apis.Models.Entities.CartJewel", b =>
-                {
-                    b.Property<int>("CartId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("JewelId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CartId", "JewelId");
-
                     b.HasIndex("JewelId");
 
-                    b.ToTable("CartJewels");
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("Swarovski_Apis.Models.Entities.Jewel", b =>
@@ -87,33 +85,20 @@ namespace Swarovski_Apis.Migrations
                     b.ToTable("Jewels");
                 });
 
-            modelBuilder.Entity("Swarovski_Apis.Models.Entities.CartJewel", b =>
+            modelBuilder.Entity("Swarovski_Apis.Models.Entities.Cart", b =>
                 {
-                    b.HasOne("Swarovski_Apis.Models.Entities.Cart", "Cart")
-                        .WithMany("CartJewels")
-                        .HasForeignKey("CartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Swarovski_Apis.Models.Entities.Jewel", "Jewel")
-                        .WithMany("CartJewels")
+                        .WithMany("Carts")
                         .HasForeignKey("JewelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Cart");
-
                     b.Navigation("Jewel");
-                });
-
-            modelBuilder.Entity("Swarovski_Apis.Models.Entities.Cart", b =>
-                {
-                    b.Navigation("CartJewels");
                 });
 
             modelBuilder.Entity("Swarovski_Apis.Models.Entities.Jewel", b =>
                 {
-                    b.Navigation("CartJewels");
+                    b.Navigation("Carts");
                 });
 #pragma warning restore 612, 618
         }

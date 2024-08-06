@@ -9,5 +9,6 @@ namespace Swarovski_Apis.Models.Entities
 
         public int JewelId { get; set; }
         public Jewel Jewel { get; set; }
+        public int Quantity { get; set; }
     }
 }

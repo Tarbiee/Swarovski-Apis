@@ -16,28 +16,15 @@ namespace Swarovski_Apis.Data
 
         public DbSet<Jewel> Jewels { get; set; }
         public DbSet<Cart> Carts { get; set; }
-        public DbSet<CartJewel> CartJewels { get;set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-            // Configuring composite key for CartJewel
-            modelBuilder.Entity<CartJewel>()
-                .HasKey(cj => new { cj.CartId, cj.JewelId });
-
-            //configuring relationship from CartJewel to Cart
-            modelBuilder.Entity<CartJewel>()
-                .HasOne(cj => cj.Cart)
-                .WithMany(c => c.CartJewels)
-                .HasForeignKey(cj => cj.CartId);
-
-            //configuring relationship from CartJewel to Jewel
-            modelBuilder.Entity<CartJewel>()
-                .HasOne(cj => cj.Jewel)
-                .WithMany(c => c.CartJewels)
+            modelBuilder.Entity<Cart>()
+                .HasOne(c => c.Jewel)
+                .WithMany(j => j.Carts)
                 .HasForeignKey(cj => cj.JewelId);
 
-            
         }
     }
 }

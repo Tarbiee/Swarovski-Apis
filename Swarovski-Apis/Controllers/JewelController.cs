@@ -91,7 +91,6 @@ namespace Swarovski_Apis.Controllers
         }
 
 
-        // DELETE: api/Jewel/{id}
         [HttpDelete("deleteJewel/{id:int}")]
         public IActionResult DeleteJewel(int id)
         {

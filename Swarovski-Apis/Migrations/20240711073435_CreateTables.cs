@@ -11,20 +11,6 @@ namespace Swarovski_Apis.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Carts",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Carts", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Jewels",
                 columns: table => new
                 {
@@ -42,23 +28,22 @@ namespace Swarovski_Apis.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CartJewels",
+                name: "Carts",
                 columns: table => new
                 {
-                    CartId = table.Column<int>(type: "int", nullable: false),
-                    JewelId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    JewelId = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<int>(type: "int", nullable: false),
+                    JewelName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    JewelImage = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CartJewels", x => new { x.CartId, x.JewelId });
+                    table.PrimaryKey("PK_Carts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CartJewels_Carts_CartId",
-                        column: x => x.CartId,
-                        principalTable: "Carts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CartJewels_Jewels_JewelId",
+                        name: "FK_Carts_Jewels_JewelId",
                         column: x => x.JewelId,
                         principalTable: "Jewels",
                         principalColumn: "id",
@@ -66,17 +51,14 @@ namespace Swarovski_Apis.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CartJewels_JewelId",
-                table: "CartJewels",
+                name: "IX_Carts_JewelId",
+                table: "Carts",
                 column: "JewelId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "CartJewels");
-
             migrationBuilder.DropTable(
                 name: "Carts");
 

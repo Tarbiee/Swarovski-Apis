@@ -1,13 +1,19 @@
 using Microsoft.EntityFrameworkCore;
 using Swarovski_Apis.Data;
+using MpesaSdk;
+using MpesaSdk.Interfaces;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
+using Swarovski_Apis.Models.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
 
-//added
 // Add CORS services
 builder.Services.AddCors(options =>
 {
@@ -20,13 +26,23 @@ builder.Services.AddCors(options =>
         });
 });
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+// Configure Swagger/OpenAPI
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Add DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// Register MpesaClient with HttpClient
+builder.Services.AddHttpClient("mpesa", c=>
+{
+    c.BaseAddress = new Uri("https://sandbox.safaricom.co.ke");
+});
+
+
+// Configure MpesaApiConfiguration from appsettings.json
+//builder.Services.Configure<MpesaApiConfiguration>(configuration.GetSection("MpesaApiConfiguration"));
 
 var app = builder.Build();
 
@@ -39,7 +55,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-//added
 // Use the CORS middleware
 app.UseCors("AllowSpecificOrigin");
 
